@@ -1,0 +1,12 @@
+/analysis/
+/probe/
+/build/
+/dist/
+/.superpowers/
+__pycache__/
+*.py[cod]
+*.dylib
+*.app/
+*.ipa
+*.ips
+.DS_Store
