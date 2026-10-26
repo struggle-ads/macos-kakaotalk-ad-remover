@@ -13,6 +13,11 @@ allowing the local library, and re-signs that copy. It verifies before activatin
 it and keeps the original bundle for restore. Applying requires explicit risk
 acceptance and a stopped app. Creating this tool does not install it here.
 
+The one-command installer orchestrates consent, cached builds, normal application
+termination and patching. It relaunches only an app that was running beforehand.
+This updates the earlier no-auto-launch behavior only for the opt-in installer;
+the low-level apply/restore commands still never launch or terminate applications.
+
 Initial support: KakaoTalk macOS 26.9.0 (2006), the exact examined universal binary.
 Unknown builds fail closed. Payloads build for arm64 and x86_64; runtime tests
 on this machine cover arm64. Account safety and authenticated end-to-end behavior

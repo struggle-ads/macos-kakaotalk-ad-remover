@@ -12,9 +12,10 @@ root = Path.cwd()
 output = root / 'dist'
 output.mkdir(exist_ok=True)
 archive = output / ('kakao-ad-patcher-' + VERSION + '.zip')
-files = [root / 'README.md', root / 'patcher.py', root / 'build/KakaoAdBlock.dylib']
+files = [root / 'README.md', root / 'patcher.py', root / 'install.sh',
+         root / 'build/KakaoAdBlock.dylib', root / 'build/KakaoAppControl', root / 'build/artifacts.json']
 files += sorted((root / 'kakao_patch').glob('*.py'))
-files += [root / 'src/AdBlock.m', root / 'scripts/build.sh']
+files += [root / 'src/AdBlock.m', root / 'src/AppControl.m', root / 'scripts/build.sh']
 files += [root / 'docs/verification.md']
 with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as bundle:
     for path in files:

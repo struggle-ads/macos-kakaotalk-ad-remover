@@ -27,30 +27,40 @@
 
 자세한 검증 범위는 [검증 기록](docs/verification.md)을 참고하세요.
 
-## 사용
+## 명령 한 번으로 설치
 
-소스에서 빌드하려면 Apple Command Line Tools가 필요합니다.
-
-```sh
-bash scripts/build.sh
-python3 patcher.py status
-```
-
-카카오톡을 완전히 종료하고, 위 위험을 이해한 경우에만 적용합니다.
-패처는 수정된 앱을 자동으로 실행하지 않습니다.
+프로젝트 또는 배포 ZIP을 푼 폴더에서 실행합니다.
 
 ```sh
-python3 patcher.py apply --accept-risk
+./install.sh
 ```
 
-다른 경로의 설치본에는 `--app '/경로/KakaoTalk.app'`을 지정합니다.
-쓰기 권한이 없으면 작업이 실패하며, 패처가 관리자 권한을 자동 요청하거나 보안 설정을 바꾸지 않습니다.
+위험 고지에 동의하면 **필요한 빌드 → 카카오톡 정상 종료 → 백업 → 패치·서명 검증 → 재실행**을
+이어 진행합니다. 빌드된 배포 파일이 있으면 다시 컴파일하지 않습니다.
+작업 전에 실행 중이던 카카오톡만 다시 엽니다. 종료가 거부되거나 끝나지 않으면 강제 종료하지 않고 중단합니다.
+이미 패치된 앱은 변경하거나 종료하지 않습니다.
 
-원본으로 돌아가려면 카카오톡을 종료한 뒤 실행합니다.
+확인 질문 없이 위험 동의를 옵션으로 명시하려면 다음 명령 하나를 사용합니다.
 
 ```sh
-python3 patcher.py restore
+./install.sh --accept-risk
 ```
+
+원본 복구도 한 번에 실행합니다.
+
+```sh
+./install.sh --restore
+```
+
+다른 설치 경로는 `--app '/경로/KakaoTalk.app'`, 자동 재실행을 원치 않으면 `--no-relaunch`를 추가합니다.
+처음부터 `sudo`로 실행하지 마세요. 쓰기 권한이 필요할 때 파일 작업에 한해서 관리자 암호를 요청합니다.
+macOS의 권한·보안 확인을 자동 승인하지 않습니다.
+
+Python 3.9 이상이 필요합니다. 소스에서 처음 빌드하거나 소스가 바뀌었다면 Apple Command Line Tools도
+필요합니다. 필수 도구가 없으면 설치 방법을 안내하고 중단합니다.
+
+고급 사용자는 기존의 `python3 patcher.py status`, `apply --accept-risk`, `restore` 명령도
+사용할 수 있습니다. 이 하위 명령들은 앱을 자동 종료·재실행하지 않습니다.
 
 원본은 앱 옆의 숨김 폴더 `.KakaoTalk.app.kakao-ad-remover/original.app`에 보관됩니다.
 패치 사용 중 이 폴더를 삭제하지 마세요. 중간에 중단됐다면 `status`를 확인하고 `restore`로 복구합니다.
